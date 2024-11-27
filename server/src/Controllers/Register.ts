@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import userModel from "../Models/User";
 import bcrypt from "bcryptjs"
 
-export const Register = async(req: Request, res: Response) => {
+export const Register = async(req: Request, res: Response): Promise<void> => {
   const {username, email, password} = req.body;
 
   if(username.trim()==="" || email.trim()==="" || password.trim()===""){

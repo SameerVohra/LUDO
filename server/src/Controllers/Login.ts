@@ -23,7 +23,7 @@ export const Login = async(req: Request, res: Response) => {
             return;
         }
 
-        const tokenPayload = {userId: user._id, password: user.password, username: username};
+        const tokenPayload = {username:user.username, userId: user._id};
         if(!process.env.SECRET_KEY){
             throw new Error("Secret key not defined");
         }
