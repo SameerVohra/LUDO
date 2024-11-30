@@ -18,7 +18,9 @@ export const Login = async(req: Request, res: Response) => {
             return ;
         }
 
-        if(!bcrypt.compare(password, user.password)){
+        const isPass: boolean = await bcrypt.compare(password, user.password);
+
+        if(!isPass){
             res.status(404).send("Wrong Password");
             return;
         }
@@ -33,9 +35,9 @@ export const Login = async(req: Request, res: Response) => {
             process.env.SECRET_KEY as string,
         )
 
-        res.status(201).json({message: "Login Successful", token: token});
+        res.status(201).json({message: "Login Successful", token: token, email: user.email});   
 
     } catch (error) {
-        res.status(501).send("Internal Server Error");
+        res.status(501).json({error: error});
     }
 }

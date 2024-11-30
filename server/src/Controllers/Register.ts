@@ -13,21 +13,21 @@ export const Register = async(req: Request, res: Response): Promise<void> => {
   try {
     const user = await userModel.findOne({$or: [{email: email, username: username}]});
     if(user){
-        res.status(409).send("Email/username already in use");
+        res.status(409).send("Email/Username already in use");
         return;
     }
 
     const newUser = await new userModel({
         username,
         email,
-        password: bcrypt.hashSync(password, 8)
+        password: bcrypt.hashSync(password, 8),
     })
 
     await newUser.save();
 
     res.status(201).send("User Registered Successfully");
   } catch (error) {
-    res.status(501).send("Internal Server Error");
+    res.status(501).json({error: error});
   }
 
 }
