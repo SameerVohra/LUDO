@@ -12,11 +12,11 @@ export const GenerateGame = async(req: Request, res: Response): Promise<void> =>
             username,
             gameId,
             gamePass,
-            joinedUsers: [],
+            position: []
         })
 
         await newGame.save();
-        res.status(201).json({message: "Game Created", id:gameId, pass:gamePass});
+        res.status(201).json({message: "Game Created", game: newGame});
     } catch (error) {
         res.status(501).send("Internal Server Error");
     }
